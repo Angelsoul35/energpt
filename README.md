@@ -202,4 +202,4 @@ the LLM phrase it, and never let the model invent a number.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](LICENSE) © Angelo David Padilla Romero
