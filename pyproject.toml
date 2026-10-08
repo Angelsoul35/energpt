@@ -1,0 +1,43 @@
+[project]
+name = "energpt"
+version = "1.0.0"
+description = "An energy-sector copilot: a deterministic engine analyses an hourly electricity-consumption series (peak hours, base load, load factor, time-of-use cost and quantified savings) and a provider-agnostic LLM phrases the computed figures as a grounded energy-saving advisory, with a fully offline deterministic fallback."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Angelo David Padilla Romero" }]
+
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.34",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.6",
+  "numpy>=2.1",
+  "scikit-learn>=1.5",
+  "httpx>=0.28",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.8"]
+
+[project.scripts]
+energpt = "energpt.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["energpt*"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["B008"]
