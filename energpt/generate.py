@@ -24,10 +24,30 @@ import numpy as np
 # Extra watt-hours above the base load, by hour of day (0-23), for a weekday.
 # Index 0 is midnight. The evening (18:00-20:00) is the clear usage peak.
 _HOURLY_SHAPE: list[int] = [
-    20, 10, 5, 5, 5, 10,        # 00-05  overnight trough
-    60, 180, 320, 220, 160, 150,  # 06-11  morning activity
-    170, 150, 130, 140, 200, 420,  # 12-17  afternoon rising into the evening
-    620, 680, 520, 300, 140, 60,   # 18-23  evening peak, then wind-down
+    20,
+    10,
+    5,
+    5,
+    5,
+    10,  # 00-05  overnight trough
+    60,
+    180,
+    320,
+    220,
+    160,
+    150,  # 06-11  morning activity
+    170,
+    150,
+    130,
+    140,
+    200,
+    420,  # 12-17  afternoon rising into the evening
+    620,
+    680,
+    520,
+    300,
+    140,
+    60,  # 18-23  evening peak, then wind-down
 ]
 
 
@@ -37,10 +57,10 @@ class SampleSpec:
 
     name: str
     description: str
-    base_wh: int          # always-on base load, watt-hours per hour
-    peak_scale: float     # multiplier on the daily shape (bigger home -> higher peaks)
+    base_wh: int  # always-on base load, watt-hours per hour
+    peak_scale: float  # multiplier on the daily shape (bigger home -> higher peaks)
     weekend_daytime_wh: int  # extra daytime watt-hours at the weekend
-    noise_wh: float       # standard deviation of the hourly noise
+    noise_wh: float  # standard deviation of the hourly noise
     seed: int
 
 

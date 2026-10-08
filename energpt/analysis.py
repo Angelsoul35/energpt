@@ -43,11 +43,11 @@ def cost_cents(energy_wh: int, rate_cents_per_kwh: int) -> int:
 class Opportunity:
     """One quantified saving, computed from the analysis (not invented)."""
 
-    key: str                    # machine key: "load_shift" | "standby"
-    title: str                  # short human label
-    energy_wh: int              # energy shifted or saved over the analysed period
-    saving_cents: int           # money saved over the analysed period
-    rationale: str              # the computed basis, in one sentence
+    key: str  # machine key: "load_shift" | "standby"
+    title: str  # short human label
+    energy_wh: int  # energy shifted or saved over the analysed period
+    saving_cents: int  # money saved over the analysed period
+    rationale: str  # the computed basis, in one sentence
 
 
 @dataclass(frozen=True)
@@ -59,11 +59,11 @@ class Analysis:
 
     # Consumption profile
     average_wh: int
-    peak_wh: int                 # the single highest hourly reading
-    base_load_wh: int            # overnight minimum (always-on floor)
-    load_factor: float           # average / peak, in (0, 1]
+    peak_wh: int  # the single highest hourly reading
+    base_load_wh: int  # overnight minimum (always-on floor)
+    load_factor: float  # average / peak, in (0, 1]
     peak_usage_hours: list[int]  # hours of day with the highest average usage
-    peak_usage_avg_wh: int       # average reading at the top usage hour
+    peak_usage_avg_wh: int  # average reading at the top usage hour
     usage_peak_in_tariff_window: int  # how many peak-usage hours fall in the peak tariff window
 
     # Tariff
@@ -197,9 +197,9 @@ def analyse(
     standby_peak_wh = reduce_per_hour_wh * n_peak_hours
     standby_offpeak_wh = reduce_per_hour_wh * n_offpeak_hours
     standby_energy_wh = standby_peak_wh + standby_offpeak_wh
-    standby_saving_cents = cost_cents(
-        standby_peak_wh, settings.peak_rate_cents
-    ) + cost_cents(standby_offpeak_wh, settings.offpeak_rate_cents)
+    standby_saving_cents = cost_cents(standby_peak_wh, settings.peak_rate_cents) + cost_cents(
+        standby_offpeak_wh, settings.offpeak_rate_cents
+    )
 
     opportunities = [
         Opportunity(

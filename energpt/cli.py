@@ -39,13 +39,8 @@ def _print_analysis(a: Analysis) -> None:
         f"   tariff            {_hour(start)}-{_hour(end)} peak "
         f"@ {a.peak_rate_cents}c/kWh, off-peak @ {a.offpeak_rate_cents}c/kWh"
     )
-    print(
-        f"   peak energy/cost  {_kwh(a.peak_energy_wh)}  ->  {_money(a.peak_cost_cents)}"
-    )
-    print(
-        f"   off-peak e./cost  {_kwh(a.offpeak_energy_wh)}  ->  "
-        f"{_money(a.offpeak_cost_cents)}"
-    )
+    print(f"   peak energy/cost  {_kwh(a.peak_energy_wh)}  ->  {_money(a.peak_cost_cents)}")
+    print(f"   off-peak e./cost  {_kwh(a.offpeak_energy_wh)}  ->  {_money(a.offpeak_cost_cents)}")
     print(
         f"   total bill        {_money(a.total_cost_cents)}  "
         f"({_money(a.avg_daily_cost_cents)}/day, "
@@ -53,10 +48,7 @@ def _print_analysis(a: Analysis) -> None:
     )
     print("\n3) Quantified savings opportunities (exact arithmetic):")
     for opp in a.opportunities:
-        print(
-            f"   - {opp.title:<34} save {_money(opp.saving_cents)}  "
-            f"({_kwh(opp.energy_wh)})"
-        )
+        print(f"   - {opp.title:<34} save {_money(opp.saving_cents)}  ({_kwh(opp.energy_wh)})")
         print(f"     why: {opp.rationale}")
     print(
         f"   => total {_money(a.total_saving_cents)} over the period, "

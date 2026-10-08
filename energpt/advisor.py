@@ -72,9 +72,7 @@ def build_facts(analysis: Analysis) -> dict[str, str]:
         "load_factor": f"{a.load_factor}",
         "peak_usage_hours": _hours(a.peak_usage_hours),
         "peak_usage_level": f"{a.peak_usage_avg_wh} W",
-        "usage_in_window": (
-            f"{a.usage_peak_in_tariff_window} of {len(a.peak_usage_hours)}"
-        ),
+        "usage_in_window": (f"{a.usage_peak_in_tariff_window} of {len(a.peak_usage_hours)}"),
         "total_saving": _money(a.total_saving_cents),
         "projected_monthly_saving": _money(a.projected_monthly_saving_cents),
     }
