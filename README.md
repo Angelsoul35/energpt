@@ -7,6 +7,12 @@ load factor, time-of-use cost, and quantified savings — and a provider-agnosti
 LLM only *phrases* those numbers. With no API key it runs fully offline: a
 deterministic template renders the same substantive advice.
 
+[![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)](.github/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+---
+
 ## Why it matters
 
 Most "AI energy coach" demos hand the meter data straight to a language model and
