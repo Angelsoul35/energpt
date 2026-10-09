@@ -49,7 +49,7 @@ ahorro = coste_cent(recorte_por_hora * horas_punta,  tarifa_punta)
 Ejemplo: carga base 100 Wh → recorte 25 Wh/h; con 8 horas punta y 40 valle →
 `coste_cent(200, 30) + coste_cent(1000, 12) = 6 + 12 = 18` céntimos.
 
-## Honestidad sobre los porcentajes
+## Qué son esos porcentajes
 
 El 30% y el 25% son **supuestos de configuración**, no una auditoría medida de una
 vivienda concreta. Están expuestos como ajustes (`EP_...`) precisamente para que

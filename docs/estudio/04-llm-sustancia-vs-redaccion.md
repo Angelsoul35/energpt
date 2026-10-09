@@ -1,6 +1,6 @@
 # 04 — Sustancia determinista vs. redacción del LLM
 
-## La decisión clave de honestidad
+## La decisión clave de confianza
 
 El fallo típico de un "asesor energético con IA" es dar un número con seguridad y
 sin base: le preguntas cuánto ahorrarías y te suelta "un 15%" que no sale de tus
@@ -44,7 +44,7 @@ error de red), pasa al siguiente; si fallan todos, el asesor cae a la plantilla.
 
 La decisión de construir o no el cliente la toma el servicio: solo lo construye si
 hay alguna clave de proveedor en el entorno. Sin clave → plantilla y sin llamadas
-de red (ni siquiera a localhost). Es el valor por defecto honesto.
+de red (ni siquiera a localhost). Es el valor por defecto seguro.
 
 ## Para fijar la idea
 

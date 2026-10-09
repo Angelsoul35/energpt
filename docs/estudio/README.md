@@ -8,13 +8,14 @@ decisión.
 ## Orden sugerido
 
 1. [01 — El consumo y la serie horaria](01-consumo-y-series.md)
-   Qué medimos, cómo se sintetiza una serie realista y por qué es determinista.
+   Qué medimos, las dos fuentes de series (sintética determinista y datos reales de
+   Low Carbon London) y cómo se valida el motor sobre contadores reales.
 2. [02 — El análisis determinista](02-analisis-determinista.md)
    Horas punta, carga base, factor de carga y por qué el dinero son enteros en céntimos.
 3. [03 — La tarifa y los ahorros](03-tarifa-y-ahorros.md)
    La tarifa por tramos horarios y cómo se calcula cada oportunidad de ahorro.
 4. [04 — Sustancia determinista vs. redacción del LLM](04-llm-sustancia-vs-redaccion.md)
-   La decisión clave de honestidad: el LLM redacta, no calcula.
+   La decisión clave de confianza: el LLM redacta, no calcula.
 5. [05 — Preguntas de entrevista](05-preguntas-de-entrevista.md)
    Preguntas típicas y cómo responderlas con este proyecto.
 

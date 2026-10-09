@@ -31,7 +31,7 @@ _PROVIDER_KEYS = (
 def default_llm(settings: Settings) -> LLMClient | None:
     """Build the provider cascade only if a provider key is in the environment.
 
-    Returning ``None`` is the honest default: no key means the advisor uses the
+    Returning ``None`` is the safe default: no key means the advisor uses the
     deterministic template and makes no network calls. When a key is present the
     cascade is built; it still falls back provider-to-provider, and the advisor
     falls back to the template if every provider fails.

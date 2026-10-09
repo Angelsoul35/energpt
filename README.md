@@ -24,7 +24,7 @@ LLM is confined to wording them:
 - **Grounded.** Every figure in the advisory is produced by the analysis engine
   from the consumption series. The advisor is handed those figures and may use
   only them.
-- **Honest about the split.** The substance (what to do and how much it saves) is
+- **Explicit about the split.** The substance (what to do and how much it saves) is
   deterministic; the LLM contributes fluency, not facts. The result records
   whether the LLM or the offline template wrote it.
 - **Offline by default.** No network and no API key are required. Set a provider
@@ -58,7 +58,7 @@ flowchart LR
    retrieval answers a free-text question ("how do I cut standby power?") with a
    grounded, cited tip.
 
-## The deterministic-substance / LLM-phrasing split (the honest part)
+## The deterministic-substance / LLM-phrasing split (what makes it trustworthy)
 
 This is the design decision that makes the advice trustworthy, so it is worth
 stating plainly.
@@ -91,7 +91,7 @@ Because of this split:
   computed by the analysis. The LLM is given the same constraint in its prompt,
   and the structured analysis is always returned alongside the prose so a reader
   can check it.
-- **It is honest about which path ran.** `source` is `"llm"` or `"template"`.
+- **It reports which path ran.** `source` is `"llm"` or `"template"`.
 
 ## Quick start
 
@@ -140,6 +140,41 @@ curl -s -X POST localhost:8000/ask -H 'content-type: application/json' \
 curl -s localhost:8000/samples
 ```
 
+## Validated on real consumption
+
+The engine is deterministic — tariff arithmetic and load-shift maths, not a trained
+model — so there is nothing to over/underfit and no accuracy figure to report. The
+real-data question for a deterministic engine is instead: *does it produce correct,
+sensible advice on real homes, not only on the synthetic generator?*
+
+To answer it, a 10-home, 14-day slice of the **real** Low Carbon London smart-meter
+trial is vendored under `datasets/london_real.npz` (half-hourly kWh aggregated to
+hourly watt-hours; see `datasets/README.md` for provenance). `python -m energpt.real_benchmark`
+runs the analysis engine and the offline advisor over every home:
+
+```
+EnerGPT real-data report — Low Carbon London smart meters
+homes analysed        : 10 (14 days of hourly readings each)
+mean energy / home    : 259.2 kWh over the period
+mean projected cost   : $90.54 / month
+mean projected saving : $14.31 / month
+median saving / cost  : 12.8% of the bill
+
+when each home's usage peaks (hour-of-day -> homes):
+  19:00  ##### (5)
+  20:00  ######## (8)
+  21:00  ####### (7)
+```
+
+On real consumption the engine reconstructs the residential evening peak (most homes
+peak at 19:00–21:00), costs each home against the tariff, and finds a load-shift +
+standby saving worth ~13% of the bill — the same advice it gives on synthetic samples,
+now grounded in real meters. `tests/test_real_benchmark.py` asserts the engine's
+invariants hold on all 10 real homes (the energy accounting identity, bounded load
+factor, valid peak hours, non-negative savings capped by the bill) and that the
+metrics genuinely respond to the input: identical energy placed inside the peak
+tariff window is costed higher and advised to shift, while off-peak energy is not.
+
 ## Using a real LLM provider
 
 The advisor is provider-agnostic. Set any of `ANTHROPIC_API_KEY`,
@@ -180,8 +215,10 @@ pytest --cov=energpt --cov-report=term-missing --cov-fail-under=80
 The suite covers the analysis arithmetic (a by-hand probe checks peak detection,
 tariff cost and the savings math to the exact cent), the advisor on both paths
 (`FakeLLM` phrases, `FailingLLM` falls back to the template), the guarantee that
-the template invents no numbers, TF-IDF tip retrieval, the HTTP API, and the CLI.
-Tests use `FakeLLM`/`FailingLLM`, so nothing touches a real network.
+the template invents no numbers, TF-IDF tip retrieval, the HTTP API, the CLI, and
+the **real-data benchmark** (the engine's invariants on all 10 real London homes,
+and that cost/advice respond to where load sits in the tariff window). Tests use
+`FakeLLM`/`FailingLLM` and vendored data, so nothing touches a real network.
 
 ## Documentation
 
@@ -191,14 +228,15 @@ Tests use `FakeLLM`/`FailingLLM`, so nothing touches a real network.
 
 ## A note on scope
 
-EnerGPT is a reference implementation, not a metering or billing product. The
-consumption series is synthetic, the tariff model is a simple two-rate
-time-of-use scheme, and the savings percentages are configurable assumptions, not
-a measured audit of any specific home. A production system would ingest real
-smart-meter data, model a full tariff (standing charges, demand charges, feed-in),
-and base the shiftable/standby fractions on appliance-level disaggregation. What
-it demonstrates is the architecture: compute the substance deterministically, let
-the LLM phrase it, and never let the model invent a number.
+EnerGPT is a reference implementation, not a metering or billing product. It ships
+a synthetic generator for reproducible demos *and* runs on real smart-meter data
+(the vendored Low Carbon London slice above); the tariff model is a simple two-rate
+time-of-use scheme, and the savings percentages are configurable assumptions, not a
+measured audit of any specific home. A production system would ingest a live
+smart-meter feed, model a full tariff (standing charges, demand charges, feed-in),
+and base the shiftable/standby fractions on appliance-level disaggregation. What it
+demonstrates is the architecture: compute the substance deterministically, let the
+LLM phrase it, and never let the model invent a number.
 
 ## License
 

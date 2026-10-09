@@ -3,7 +3,7 @@
 A free-text question ("how do I cut standby power?") is answered by retrieving
 the closest tip, not by generating one. It is a classic TF-IDF + cosine
 similarity search: simple, explainable, offline, with no model to train or host.
-Grounding the answer in a fixed tip is what keeps it honest — the reply is a
+Grounding the answer in a fixed tip is what keeps it verifiable — the reply is a
 curated tip, with its topic cited, never a fabricated claim.
 """
 

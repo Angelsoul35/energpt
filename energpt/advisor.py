@@ -1,6 +1,6 @@
 """Turn a computed :class:`~energpt.analysis.Analysis` into a readable advisory.
 
-The split that keeps this honest:
+The split that keeps every figure traceable to the analysis:
 
 * **The substance is computed, not written.** Every figure — the current cost,
   the peak/off-peak split, the base load, each saving — comes from

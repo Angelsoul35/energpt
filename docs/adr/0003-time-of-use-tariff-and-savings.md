@@ -31,7 +31,7 @@ arithmetic.
 - The advice is a direct, checkable consequence of the tariff and the series: a
   home whose usage peak sits inside the expensive window has a large shift saving;
   a flat overnight-heavy load does not.
-- The percentages are honest *assumptions*, not a measured audit, and are exposed
+- The percentages are explicit *assumptions*, not a measured audit, and are exposed
   as settings so an operator can tune them (or set them from real appliance-level
   data later).
 - A single flat rate is a degenerate case (set both rates equal), where the shift
